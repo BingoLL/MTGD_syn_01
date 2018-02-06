@@ -1,0 +1,116 @@
+﻿{% extends 'base.html' %}
+{% load static %}
+{% block title %}关于{% endblock %}
+{% block contents %}
+<!--contents-->
+<div class="grid-container">
+
+    <ul class="tabs" data-responsive-accordion-tabs="accordion medium-tabs large-tabs" id="example-tabs">
+        <li class="tabs-title is-active"><a href="#panel1" aria-selected="true">关于本站</a></li>
+        <li class="tabs-title"><a href="#panel2">关于作者</a></li>
+        <li class="tabs-title"><a href="#panel3">留言墙</a></li>
+        <li class="tabs-title"><a href="#panel4">友情链接</a></li>
+    </ul>
+
+    <div class="tabs-content" data-tabs-content="example-tabs">
+        <!--关于本站-->
+        <div class="tabs-panel is-active" id="panel1">
+            {% for about_site_post in aboutsite_posts %}
+                {{ about_site_post.body|safe }}
+            {% endfor %}
+        </div><!--关于本站-->
+        <!--关于作者-->
+        <div class="tabs-panel" id="panel2">
+            {% for about_me_post in aboutme_posts %}
+                {{ about_me_post.body|safe }}
+            {% endfor %}
+        </div><!--关于作者-->
+        <!--留言墙-->
+        <div class="tabs-panel" id="panel3">
+            <!--提交评论-->
+            <form id="messages_add" class="grid-container" action="" method="post" data-abide novalidate>
+                <div class="grid-x grid-padding-x">
+                    <label class="small-12 medium-12 large-12">
+                        <textarea id="message_body" name="message_body" placeholder="承蒙赐教，感激不尽！" required></textarea>
+                    </label>
+
+                    <label class="small-6 medium-4 large-3">
+                        <input type="text" id="message_name" name="message_name" placeholder="您的昵称" required />
+                    </label>
+                    <button class="button success small-offset-2 small-4 medium-offset-1 medium-3 large-2" type="submit">提交评论</button>
+                    {% csrf_token %}
+                </div>
+            </form><!--提交评论-->
+            <!--评论列表-->
+            <h5>留言墙</h5>
+            <hr style="height:1px;border:none;margin-top:5px;padding:0;border-top:1px dashed #808080;" />
+            <ul class="grid-container">
+            {% if messages.count %}
+                {% for message in messages %}
+                <li class="grid-x grid-padding-x" style="color:#808080;">
+                    <div class="small-11">
+                        <span class="">{{ message.name }}</span>&nbsp;&nbsp;&nbsp;<span>{{ message.created }}</span>
+                    </div>
+                    <div class="small-1 text-right">
+                        <span>{{ forloop.revcounter }}#</span>
+                    </div>
+                    <div class="small-12">
+                        {{ message.body }}
+                    </div>
+                </li>
+                {% endfor %}
+            {% endif %}
+            </ul><!--评论列表-->
+            {% include 'pagination.html' with page=posts %}
+
+        </div><!--留言墙-->
+        <!--友情链接-->
+        <div class="tabs-panel" id="panel4">
+            <div class="grid-container">
+                <div class="grid-x grid-padding-x small-up-2 medium-up-4 large-up-5">
+                    {% for friend_web_site in friend_web_list  %}
+                    <div class="cell">
+                        <div class="callout text-center" style="padding:2px;">
+                            <img class="hide-for-small-only" src="{{ friend_web_site.logo_pic.url }}" alt="" />
+                            <small><a href="{{ friend_web_site.web_address }}" target="_blank">{{ friend_web_site.friend_web_name }}</a></small>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div><!--友情链接-->
+
+    </div>
+
+    <div class="grid-x grid-padding-x">
+
+    </div>
+</div>
+{% endblock %}
+{% block jscontent %}
+    <script>
+    $(document).ready(function () {
+        $.ajaxSetup({
+                 data: {csrfmiddlewaretoken: '{{ csrf_token }}' },
+            });
+        $('#messages_add').submit(function () {
+            var cc_name=$('#message_name').val();
+            var cc = $('#message_body').val();
+            $.ajax({
+                type:'POST',
+                url:"{% url 'mysite:submit_messages' %}",
+                data:{'cc_name':cc_name,'cc':cc},
+                success:function (ret) {
+                    $('#message_name').val('');
+                    $('#message_body').val('');
+                    alert('您已提交留言，请勿重复提交。');
+                },
+                error:function () {
+                },
+
+            });
+            return false;
+        });
+    });
+    </script>
+{% endblock %}

@@ -1,0 +1,120 @@
+﻿{% extends 'base.html' %}
+{% load static %}
+{% block title %}{{ post.title }}{% endblock %}
+{% block target %}target="_blank"{% endblock%}
+{% block contents %}
+<!--contents-->
+<div class="grid-container">
+    <div class="grid-x grid-padding-x">
+        <!--detail contents-->
+        <div class="small-12 medium-8 large-8 cell" style="">
+            <div class="callout">
+                <nav aria-label="You are here:" role="navigation">
+                    <ul class="breadcrumbs">
+                        <li><a href="#">{{ post.category }}</a></li>
+                        <li>
+                            <span class="show-for-sr">Current: </span> {{ post.title }}
+                        </li>
+                    </ul>
+                </nav>
+                <h3 class="text-center">{{ post.title }}</h3>
+
+                <div class="grid-x grid-padding-x">
+                    <div class="small-8 medium-4 large-4">
+                        <span class="">&nbsp;&nbsp;&nbsp;<i class="fi-calendar">&nbsp;{{ post.created_time }}</i></span>
+                    </div>
+                    <div class="hide-for-small-only medium-5 large-5">
+                        <span class="hide-for-small-only"><i class="fi-pricetag-multiple">
+                            {% for tag in post.tags.all %}
+                                <a href="{% url 'mysite:post_list_by_tag' tag_slug=tag.id %}">{{ tag.name }}</a>
+                                {% if not forloop.last %},{% endif %}
+                            {% endfor %}
+                        </i></span>
+                    </div>
+                    <div class="small-4 medium-3 large-3">
+                        <span class="text-right" style=""><i class="fi-eye">{{ post.views }}</i>&nbsp;&nbsp;&nbsp;<a href="#comments" target="_parent"><i class="fi-comments">&nbsp;{{ comments.count }}</i></a></span>
+                    </div>
+                </div>
+                <hr style="height:1px;border:none;margin-top:5px;padding:0;border-top:1px dashed #808080;" />
+                <div class="grid-x grid-padding-x">
+                    <div class="small-12 medium-12 large-12 cell">
+                        {{ post.body|safe }}
+                    </div>
+                </div>
+            </div>
+            <!--提交评论-->
+            <div class="callout "><a name="comments"></a>
+
+                <form id="comments-add" class="grid-container" action="" method="post" data-abide novalidate target="_parent">
+                    <div class="grid-x grid-padding-x">
+                        <label class="small-12 medium-12 large-12">
+                            <textarea id="id_comment" name="cc" placeholder="承蒙赐教，感激不尽！" required></textarea>
+                        </label>
+
+                        <label class="small-6 medium-6">
+                            <input type="text" id="id_name" name="cc_name" placeholder="您的昵称" required />
+                        </label>
+                        <button class="button success small-offset-2 small-4 medium-3" type="submit" id="submit_c">提交评论</button>
+                        {% csrf_token %}
+                    </div>
+                </form>
+            </div><!--提交评论-->
+            <!--评论列表-->
+            <div class="callout">
+                <h5>
+                {% if comments.count %}
+                    共有{{ comments.count }}条评论：
+                {% else %}
+                    暂无评论内容
+                {% endif %}
+                </h5>
+                <hr style="height:1px;border:none;margin-top:5px;padding:0;border-top:1px dashed #808080;" />
+                <ul class="grid-container">
+                    {% for comment in comments %}
+                    <li class="grid-x grid-padding-x" style="color:#808080;">
+                        <div class="small-11">
+                            <span class="">{{ comment.reader_name }}</span>&nbsp;&nbsp;&nbsp;<span>{{ comment.created_time }}</span>
+                        </div>
+                        <div class="small-1 text-right">
+                            <span>{{ forloop.counter }}#</span>
+                        </div>
+                        <div class="small-12">
+                            {{ comment.body }}
+                        </div>
+                    </li>
+                    {% endfor %}
+
+                </ul>
+            </div>
+        </div><!--detail contents-->
+        {% include 'side-bar.html' %}
+    </div>
+</div>
+{% endblock %}
+{% block jscontent %}
+    <script>
+    $(document).ready(function () {
+        $.ajaxSetup({
+                 data: {csrfmiddlewaretoken: '{{ csrf_token }}' },
+            });
+        $('#comments-add').submit(function () {
+            var cc_name=$('#id_name').val();
+            var cc = $('#id_comment').val();
+            $.ajax({
+                type:'POST',
+                url:"{% url 'mysite:submit_comments' post.id %}",
+                data:{'cc_name':cc_name,'cc':cc},
+                success:function (ret) {
+                    $('#id_name').val('');
+                    $('#id_comment').val('');
+                    alert('您已提交评论，请勿重复提交。');
+                },
+                error:function () {
+                    alert('失败了')
+                },
+            });
+            return false;
+        });
+    });
+    </script>
+{% endblock %}
