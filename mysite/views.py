@@ -8,7 +8,6 @@ from django.http import HttpResponse,JsonResponse
 # Create your views here.
 
 tags_color=['primary','secondary','success','warning','alert']*5
-web_settings=WebSettings.objects.filter(active=True)
 
 def get_categories():
     return Category.objects.all()
@@ -23,6 +22,7 @@ def post_list(request,tag_slug=None,cate_slug=None):
     cates_list=Category.objects.all()
     comments_last=Comment.objects.filter(active=True).order_by('-created_time',)[:10]
     tags_list=Tag.objects.all()
+    web_settings=WebSettings.objects.filter(active=True)
 
     if tag_slug:
         tag=get_object_or_404(Tag,id=tag_slug)
@@ -82,6 +82,7 @@ def post_detail(request,year,month,day,slug,tag_slug=None,cate_slug=None):
     comments_last=Comment.objects.filter(active=True).order_by('-created_time',)[:10]
     tags_list=Tag.objects.all()
     test='test_detail'
+    web_settings=WebSettings.objects.filter(active=True)
 
     tag = None
     if tag_slug:
@@ -132,6 +133,7 @@ def about(request):
         posts = paginator.page(paginator.num_pages)
 
     friend_web_list=FriendWeb.objects.filter(active=True)
+    web_settings=WebSettings.objects.filter(active=True)
 
 
     return render(request,'about.html',{'aboutsite_posts':aboutsite_posts,
