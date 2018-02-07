@@ -24,9 +24,9 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'rf3#t3)m)g^#71lmj$&tfxm22qthdn1!t@p7kk1=v&5*1$evm6'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*',]
 
 
 # Application definition
@@ -83,10 +83,10 @@ WSGI_APPLICATION = 'web_site_me.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'web_site_me',
-        'USER': 'root',
-        'PASSWORD': 'admin123',
-        'HOST': '127.0.0.1',
+        'NAME': 'MuTouGeDa_01',
+        'USER': 'MTGD_admin01',
+        'PASSWORD': 'MTGD20180205zyb',
+        'HOST': '139.224.10.13',
         'PORT': '3306',
         'CHARSET':'utf8',
     }
@@ -130,7 +130,7 @@ USE_TZ = False#True
 # https://docs.djangoproject.com/en/2.0/howto/static-files/
 
 STATIC_URL = '/static/'
-STATIC_ROOT = '/var/www/web_me/static/'
+STATIC_ROOT = '/var/www/web_MTGD/static/'
 
 MEDIA_ROOT = os.path.join(BASE_DIR,'media').replace('\\','/')
 MEDIA_URL = '/media/'
