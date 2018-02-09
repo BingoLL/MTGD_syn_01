@@ -93,8 +93,8 @@ else:
         'default': {
             'ENGINE': 'django.db.backends.mysql',
             'NAME': 'MuTouGeDa_01',
-            'USER': 'root',
-            'PASSWORD': 'AdminBingo123',
+            'USER': 'MTGD_admin01',
+            'PASSWORD': 'MTGD20180205zyb',
             'HOST': '139.224.10.13',
             'PORT': '3306',
             'CHARSET': 'utf8',
