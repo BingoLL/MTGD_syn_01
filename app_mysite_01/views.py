@@ -1,16 +1,11 @@
 from django.shortcuts import render,get_object_or_404
-from django.db.models import Count
-from .models import Category,Tag,Post,Comment,AboutSite,AboutMe,FriendWeb,MessageBoard,WebSettings
+from .models import Category,Tag,Post,Comment,AboutSite,AboutMe,FriendWeb,MessageBoard,webSettings
 from django.core.paginator import Paginator,EmptyPage,PageNotAnInteger
-import json
-from django.http import HttpResponse,JsonResponse
 
 # Create your views here.
 
+
 tags_color=['primary','secondary','success','warning','alert']*5
-web_settings=get_object_or_404(WebSettings,id=1)
-cates_list=Category.objects.all()
-tags_list=Tag.objects.all()
 
 def get_categories():
     return Category.objects.all()
@@ -23,6 +18,9 @@ def post_list(request,tag_slug=None,cate_slug=None):
     host_posts=Post.published.order_by('-views')[:10]
     recent_posts=Post.published.order_by('-publish')[:10]
     comments_last=Comment.objects.filter(active=True).order_by('-created_time',)[:10]
+    web_settings=get_object_or_404(webSettings,id=1)
+    cates_list=Category.objects.all()
+    tags_list=Tag.objects.all()
 
     if tag_slug:
         tag=get_object_or_404(Tag,id=tag_slug)
@@ -79,7 +77,9 @@ def post_detail(request,year,month,day,slug,tag_slug=None,cate_slug=None):
     host_posts=Post.published.order_by('-views')[:10]
     recent_posts=Post.published.order_by('-publish')[:10]
     comments_last=Comment.objects.filter(active=True).order_by('-created_time',)[:10]
-    test='test_detail'
+    web_settings=get_object_or_404(webSettings,id=1)
+    cates_list=Category.objects.all()
+    tags_list=Tag.objects.all()
 
     tag = None
     if tag_slug:
@@ -97,7 +97,7 @@ def post_detail(request,year,month,day,slug,tag_slug=None,cate_slug=None):
                                          'tags_list':tags_list,
                                          'tags_color':tags_color,
                                          'web_settings':web_settings,
-                                         'test':test,})
+                                         })
 
 def submit_comments(request,id):
     post=get_object_or_404(Post,id=id)
@@ -108,12 +108,9 @@ def submit_comments(request,id):
             cc = Comment(post=post, reader_name=cc_name, body=cc)
             cc.save()
     comments=post.comments.filter(active=True)
-    test='test_submit'
-    #if request.is_ajax():
-    #return JsonResponse({'post':post,'comments':comments,})
     return render(request,'comments_list.html',{'comments':comments,
                                                 'post':post,
-                                                'test':test,})
+                                                })
 
 
 def about(request):
@@ -130,6 +127,9 @@ def about(request):
         posts = paginator.page(paginator.num_pages)
 
     friend_web_list=FriendWeb.objects.filter(active=True)
+    web_settings=get_object_or_404(webSettings,id=1)
+    cates_list=Category.objects.all()
+    tags_list=Tag.objects.all()
 
 
     return render(request,'about.html',{'aboutsite_posts':aboutsite_posts,

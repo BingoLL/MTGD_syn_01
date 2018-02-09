@@ -1,18 +1,13 @@
 from django.contrib import admin
-from .models import Category,Tag,Post,Comment,AboutMe,AboutSite,FriendWeb,MessageBoard,WebSettings
-from sorl.thumbnail.admin import AdminImageMixin
-
+from .models import Category,Tag,Post,Comment,AboutMe,AboutSite,FriendWeb,MessageBoard,webSettings
 
 # Register your models here.
 
-class PostThumbAdmin(AdminImageMixin,admin.ModelAdmin):
-    pass
 
 class PostAdmin(admin.ModelAdmin):
     list_display = ('title','author','created_time','publish','status')
     list_filter = ('status','created_time','publish','author')
     search_fields = ('title','body')
-    #prepopulated_fields = {'slug':('title',)}
     raw_id_fields = ('author',)
     date_hierarchy = 'publish'
     ordering = ['status','publish']
@@ -62,4 +57,4 @@ admin.site.register(MessageBoard,MessageBoardAdmin)
 class WebSettingsAdmin(admin.ModelAdmin):
     list_display = ('web_name','web_footer_body','active')
 
-admin.site.register(WebSettings,WebSettingsAdmin)
+admin.site.register(webSettings,WebSettingsAdmin)
