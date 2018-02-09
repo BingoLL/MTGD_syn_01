@@ -4,13 +4,14 @@
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="utf-8">
-    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta http-equiv="Content-Type" content="text/html">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>{% block title %}{% endblock %}</title>
-    <link rel="shortcut icon" href="{% static 'img/favicon.ico"' %} type="image/x-icon">
+    <link rel="icon" href="{% static 'img/favicon.ico' %}" type="image/x-icon">
+    <link rel="shortcut icon" href="{% static 'img/favicon.ico' %}" type="image/x-icon">
     <style type="text/css"></style>
-    <link rel="stylesheet" href="{% static 'css/foundation.css"' %}">
+    <link rel="stylesheet" href="{% static 'css/foundation.css' %}">
     <link rel="stylesheet" href="{% static 'css/foundation-icons.css' %}">
     <link rel="stylesheet" href="{% static 'css/app.css' %}">
     <script>
@@ -24,7 +25,7 @@
             <div class="grid-container">
             </div>
             <ul class="vertical menu">
-                <li class="menu-text"><h1>{% for web_setting in web_settings %}{{ web_setting.web_name }}{% endfor %}</h1></li>
+                <li class="menu-text"><h1>{{ web_settings.web_name }}</h1></li>
                 <li class="has-submenu">
                     <a href="#0"><b>文章列表分类</b></a>
                     <ul class="submenu menu vertical" data-submenu style="margin-left:20px; ">
@@ -63,7 +64,7 @@
                 <div class="top-bar" id="responsive-menu">
                     <div class="top-bar-left">
                         <ul class="dropdown menu" data-dropdown-menu >
-                            <li class="menu-text">{% for web_setting in web_settings %}{{ web_setting.web_name }}{% endfor %}</li>
+                            <li class="menu-text">{{ web_settings.web_name }}</li>
                             <li class="has-submenu ">
                                 <a href="{% url 'mysite:post_list' %}" {% block target %}target="_parent"{% endblock%}>文章列表</a>
                             </li>
@@ -93,9 +94,7 @@
             <hr style="border:1px solid #555 ;"/>
 
             <div class="footer text-center" style="">
-                {% for web_setting in web_settings %}
-                    {{ web_setting.web_footer_body|safe }}
-                {% endfor %}
+                {{ web_settings.web_footer_body|safe }}
             </div>
             <br />
         </div>
@@ -106,6 +105,7 @@
         <script src="{% static 'js/vendor/foundation.js' %}"></script>
         <script src="{% static 'js/app.js' %}"></script>
         {% block jscontent %}{% endblock %}
+        {% block jssidebar %}{% endblock %}
 
 </body>
 </html>

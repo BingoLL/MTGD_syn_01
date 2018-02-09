@@ -1,7 +1,7 @@
 from django.db import models
 from django.utils import timezone
 from django.contrib.auth.models import User
-from django.core.urlresolvers import reverse
+from django.urls import reverse
 
 
 #from PIL import Image
@@ -54,9 +54,9 @@ class Post(models.Model):
     #post_thumb=ThumbnailerImageField(upload_to='photos/thumbs/%Y/%m/%d/',blank=True,verbose_name='文章缩略图',help_text='请上传186*90像素图片，用于本文章缩略图')
     #post_thumb_o=get_thumbnail('/home/bingo/1-gittest-projiects/01-website-me/web_site_me/media/photos/thumbs/2018/02/02/009.jpg','100x100', crop='center', quality=99)
     #post_thumb=get_thumbnail(upload_to='photos/thumbs/%Y/%m/%d/','186x90',corp='center',quality=99)
-    category=models.ForeignKey(Category,verbose_name='类别')
+    category=models.ForeignKey(Category,on_delete=models.CASCADE,verbose_name='类别')
     tags=models.ManyToManyField(Tag,blank=True,verbose_name='标签',help_text='标签数量控制在四个以内')
-    author=models.ForeignKey(User,related_name='mysite_posts',verbose_name='作者')
+    author=models.ForeignKey(User,on_delete=models.CASCADE,related_name='mysite_posts',verbose_name='作者')
     body=RichTextUploadingField(default='',verbose_name='正文')
     publish=models.DateTimeField(default=timezone.now,verbose_name='发布时间')
     created_time=models.DateTimeField(auto_now_add=True)
@@ -86,7 +86,7 @@ class Post(models.Model):
 
 
 class Comment(models.Model):
-    post=models.ForeignKey(Post,related_name='comments',verbose_name='评论所属文章')
+    post=models.ForeignKey(Post,on_delete=models.CASCADE,related_name='comments',verbose_name='评论所属文章')
     reader_name=models.CharField(max_length=80,null=True,verbose_name='读者名字')
     body=models.TextField(verbose_name='评论内容')
     created_time=models.DateTimeField(auto_now_add=True,verbose_name='评论时间')

@@ -1,12 +1,24 @@
 ﻿
 <!--sidebar-right-->
 <div class="small-12 medium-4 large-4 cell">
-            <!--Tags-->
+            <!--Cates-->
             <div class="callout">
+                <b>所有分类</b>
+                <hr />
+                {% for cate in cates_list %}
+                    <a class=" side-inblock" href="{% url 'mysite:post_list_by_cate' cate_slug=cate.id %}">
+                        <span class="label {% for tag_color in tags_color %}{% if cate.id == forloop.counter %}{{ tag_color }}{% endif %}{% endfor %}">
+                        {{ cate.name }}
+                        </span>
+                    </a>
+                {% endfor %}
+            </div><!--Tags-->
+            <!--Tags-->
+            <div class="callout side-inblock">
                 <b>所有标签</b>
                 <hr />
                 {% for tag_c in tags_list %}
-                    <a href="{% url 'mysite:post_list_by_tag' tag_slug=tag_c.id %}">
+                    <a class=" side-inblock" href="{% url 'mysite:post_list_by_tag' tag_slug=tag_c.id %}">
                         <span class="label {% for tag_color in tags_color %}{% if tag_c.id == forloop.counter %}{{ tag_color }}{% endif %}{% endfor %}">
                         {{ tag_c.name }}
                         </span>
@@ -46,3 +58,9 @@
                 </ul>
             </div><!--new comments-->
         </div><!--sidebar-right-->
+
+{% block jssidebar %}
+    <script>
+
+    </script>
+{% endblock %}

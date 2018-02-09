@@ -13,6 +13,7 @@ https://docs.djangoproject.com/en/2.0/ref/settings/
 import os
 import posixpath
 
+
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -24,7 +25,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'rf3#t3)m)g^#71lmj$&tfxm22qthdn1!t@p7kk1=v&5*1$evm6'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True#False
 
 ALLOWED_HOSTS = ['*',]
 
@@ -45,7 +46,7 @@ INSTALLED_APPS = [
     'gunicorn',
 ]
 
-MIDDLEWARE_CLASSES = [
+MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -80,18 +81,26 @@ WSGI_APPLICATION = 'web_site_me.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/2.0/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'MuTouGeDa_01',
-        'USER': 'MTGD_admin01',
-        'PASSWORD': 'MTGD20180205zyb',
-        'HOST': '139.224.10.13',
-        'PORT': '3306',
-        'CHARSET':'utf8',
+if DEBUG:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        }
     }
-}
 
+else:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.mysql',
+            'NAME': 'database-name',
+            'USER': 'user',
+            'PASSWORD': 'passwd',
+            'HOST': '127.0.0.1',
+            'PORT': '3306',
+            'CHARSET': 'utf8',
+        }
+    }
 
 # Password validation
 # https://docs.djangoproject.com/en/2.0/ref/settings/#auth-password-validators
@@ -132,7 +141,10 @@ USE_TZ = False#True
 STATIC_URL = '/static/'
 STATIC_ROOT = '/var/www/web_MTGD/static/'
 
-MEDIA_ROOT = os.path.join(BASE_DIR,'media').replace('\\','/')
+
+
+#MEDIA_ROOT = os.path.join(BASE_DIR,'media').replace('\\','/')
+MEDIA_ROOT = '/home/bingo/1-pycharm-projects/01-github-projects/media/'
 MEDIA_URL = '/media/'
 
 CKEDITOR_IMAGE_BAKEND = 'pillow'
