@@ -25,26 +25,18 @@
             <div class="grid-container">
             </div>
             <ul class="vertical menu">
-                <li class="menu-text"><h1>{{ web_settings.web_name }}</h1></li>
+                <li class="menu-text"><h1>{% if web_settings %}{{ web_settings.web_name }}{% else %}网站名称{% endif %}</h1></li>
                 <li class="has-submenu">
-                    <a href="#0"><b>文章列表分类</b></a>
+                    <a href="{% url 'mysite:post_list' %}"><b>所有文章</b></a>
                     <ul class="submenu menu vertical" data-submenu style="margin-left:20px; ">
-                        <li><a href="#0">前端</a></li>
-                        <li><a href="#0">Python</a></li>
-                        <li><a href="#0">Django</a></li>
-                        <li><a href="#0">other</a></li>
+                        {% for cate in cates_list %}
+                        <li><a href="{% url 'mysite:post_list_by_cate' cate_slug=cate.id %}">{{ cate.name }}</a></li>
+                        {% endfor %}
                     </ul>
                 </li>
+
                 <li class="has-submenu">
-                    <a href="#0"><b>其他分类</b></a>
-                    <ul class="submenu menu vertical" data-submenu style="margin-left:20px; ">
-                        <li><a href="#0">Mechanical Engineering</a></li>
-                        <li><a href="#0">Design</a></li>
-                        <li><a href="#0">other</a></li>
-                    </ul>
-                </li>
-                <li class="has-submenu">
-                    <a href="#0"><b>关于</b></a>
+                    <a href="{% url 'mysite:about' %}"><b>关于</b></a>
                 </li>
 
             </ul>
@@ -64,7 +56,7 @@
                 <div class="top-bar" id="responsive-menu">
                     <div class="top-bar-left">
                         <ul class="dropdown menu" data-dropdown-menu >
-                            <li class="menu-text">{{ web_settings.web_name }}</li>
+                            <li class="menu-text">{% if web_settings %}{{ web_settings.web_name }}{% else %}网站名称{% endif %}</li>
                             <li class="has-submenu ">
                                 <a href="{% url 'mysite:post_list' %}" {% block target %}target="_parent"{% endblock%}>文章列表</a>
                             </li>
@@ -94,7 +86,7 @@
             <hr style="border:1px solid #555 ;"/>
 
             <div class="footer text-center" style="">
-                {{ web_settings.web_footer_body|safe }}
+                {% if web_settings %}{{ web_settings.web_footer_body|safe }}{% else %}网站底部信息{% endif %}
             </div>
             <br />
         </div>

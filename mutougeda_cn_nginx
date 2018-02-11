@@ -1,6 +1,6 @@
 upstream django {
     # server unix:///path/to/your/mysite/mysite.sock; # for a file socket
-    server 139.224.10.13:8000; # for a web port socket (we'll use this first)
+    server 172.19.6.53:8000; # for a web port socket (we'll use this first)
 }
 
 # configuration of the server

@@ -7,7 +7,7 @@
                 <hr />
                 {% for cate in cates_list %}
                     <a class=" side-inblock" href="{% url 'mysite:post_list_by_cate' cate_slug=cate.id %}">
-                        <span class="label {% for tag_color in tags_color %}{% if cate.id == forloop.counter %}{{ tag_color }}{% endif %}{% endfor %}">
+                        <span class="label {% for tag_color in tags_color %}{% if cate.id == forloop.counter %}{{ tag_color }}{% endif %}{% endfor %}" style="margin-bottom: 5px;">
                         {{ cate.name }}
                         </span>
                     </a>
@@ -19,7 +19,7 @@
                 <hr />
                 {% for tag_c in tags_list %}
                     <a class=" side-inblock" href="{% url 'mysite:post_list_by_tag' tag_slug=tag_c.id %}">
-                        <span class="label {% for tag_color in tags_color %}{% if tag_c.id == forloop.counter %}{{ tag_color }}{% endif %}{% endfor %}">
+                        <span class="label {% for tag_color in tags_color %}{% if tag_c.id == forloop.counter %}{{ tag_color }}{% endif %}{% endfor %}" style="margin-bottom: 5px;">
                         {{ tag_c.name }}
                         </span>
                     </a>
