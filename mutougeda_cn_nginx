@@ -16,7 +16,7 @@ server {
 
     # Django media
     location /media  {
-        alias /home/web_sites/mutougeda_cn/MTGD_syn_01/media;  # your Django project's media files - amend as required
+        alias /var/www/web_MTGD/media;  # your Django project's media files - amend as required
     }
 
     location /static {
@@ -26,6 +26,6 @@ server {
     # Finally, send all non-media requests to the Django server.
     location / {
         uwsgi_pass  django;
-        include     /home/bingo/web_sites/MTGD_syn_01/uwsgi_params; # the uwsgi_params file you installed
+        include     /home/web_sites/mutougeda_cn/MTGD_syn_01/uwsgi_params; # the uwsgi_params file you installed
     }
 }
