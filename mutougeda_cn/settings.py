@@ -23,7 +23,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'd3ha-tl#q=gx#ooz6dk@4p25uzkbl!q)myi$!$%tq+*cfn^@nm'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['*',]
 
@@ -94,7 +94,7 @@ else:
             'NAME': 'MuTouGeDa_01',
             'USER': 'MTGD_admin01',
             'PASSWORD': 'MTGD20180205zyb',
-            'HOST': '139.224.10.13',
+            'HOST': 'localhost',
             'PORT': '3306',
             'CHARSET': 'utf8',
         }
