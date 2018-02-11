@@ -23,7 +23,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'd3ha-tl#q=gx#ooz6dk@4p25uzkbl!q)myi$!$%tq+*cfn^@nm'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['*',]
 
@@ -41,7 +41,6 @@ INSTALLED_APPS = [
     'ckeditor',
     'ckeditor_uploader',
     'sorl.thumbnail',
-    'gunicorn',
 ]
 
 MIDDLEWARE = [
@@ -132,7 +131,7 @@ USE_I18N = True
 
 USE_L10N = True
 
-USE_TZ = False#True
+USE_TZ = True
 
 
 
