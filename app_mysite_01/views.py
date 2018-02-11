@@ -53,13 +53,8 @@ def post_list(request,tag_slug=None,cate_slug=None):
                                        'web_settings':web_settings,})
 
 
-def post_detail(request,year,month,day,slug,tag_slug=None,cate_slug=None):
-    post=get_object_or_404(Post,
-                           status = 'published',
-                           publish__year = year,
-                           publish__month = month,
-                           publish__day = day,
-                           id=slug,)
+def post_detail(request,slug,tag_slug=None,cate_slug=None):
+    post=get_object_or_404(Post, status = 'published', id=slug,)
     post.views_count()
     comments=post.comments.filter(active=True)
 

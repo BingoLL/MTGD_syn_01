@@ -57,10 +57,7 @@ class Post(models.Model):
         return self.title
 
     def get_absolute_url(self):
-        return reverse('mysite:post_detail',args=[self.publish.year,
-                                                  self.publish.strftime('%m'),
-                                                  self.publish.strftime('%d'),
-                                                  self.id])
+        return reverse('mysite:post_detail',args=[self.id,])
 
     def views_count(self):
         self.views += 1
