@@ -143,7 +143,7 @@ USE_TZ = False#True
 STATIC_URL = '/static/'
 STATIC_ROOT = '/var/www/web_MTGD/static/'
 
-MEDIA_ROOT = '/home/web_sites/mutougeda_cn/media/'
+MEDIA_ROOT = '/var/www/web_MTGD/media/'
 MEDIA_URL = '/media/'
 
 CKEDITOR_IMAGE_BAKEND = 'pillow'

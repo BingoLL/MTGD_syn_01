@@ -3,6 +3,8 @@ django-ckeditor==5.4.0
 django-js-asset==1.0.0
 gunicorn==19.7.1
 Pillow==5.0.0
+pkg-resources==0.0.0
+psycopg2==2.7.4
 PyMySQL==0.8.0
 pytz==2017.3
 sorl-thumbnail==12.4.1
