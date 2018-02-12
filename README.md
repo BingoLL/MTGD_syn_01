@@ -1,4 +1,4 @@
-# MTGD_syn_01
+### www.mutougeda.cn
 for the web site.2018-02-06
 
 >### 本站源码使用（默认Linux系统）：
