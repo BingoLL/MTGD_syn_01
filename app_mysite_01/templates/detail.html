@@ -49,8 +49,7 @@
                 </div>
             </div>
             <!--提交评论-->
-            <div class="callout "><a name="comments"></a>
-
+            <div id="submit-comments" class="callout"><a name="comments"></a>
                 <form id="comments-add" class="grid-container" action="" method="post" data-abide novalidate target="_parent">
                     <div class="grid-x grid-padding-x">
                         <label class="small-12 medium-12 large-12">
@@ -66,32 +65,10 @@
                 </form>
             </div><!--提交评论-->
             <!--评论列表-->
-            <div class="callout">
-                <h5>
-                {% if comments.count %}
-                    共有{{ comments.count }}条评论：
-                {% else %}
-                    暂无评论内容
-                {% endif %}
-                </h5>
-                <hr style="height:1px;border:none;margin-top:5px;padding:0;border-top:1px dashed #808080;" />
-                <ul class="grid-container">
-                    {% for comment in comments %}
-                    <li class="grid-x grid-padding-x" style="color:#808080;">
-                        <div class="small-11">
-                            <span class="">{{ comment.reader_name }}</span>&nbsp;&nbsp;&nbsp;<span>{{ comment.created_time }}</span>
-                        </div>
-                        <div class="small-1 text-right">
-                            <span>{{ forloop.counter }}#</span>
-                        </div>
-                        <div class="small-12">
-                            {{ comment.body }}
-                        </div>
-                    </li>
-                    {% endfor %}
-
-                </ul>
+            <div id="comments-list" class="callout">
+            {% include 'comments_list.html' %}
             </div>
+
         </div><!--detail contents-->
         {% include 'side-bar.html' %}
     </div>
@@ -113,7 +90,16 @@
                 success:function (ret) {
                     $('#id_name').val('');
                     $('#id_comment').val('');
-                    alert('您已提交评论，请勿重复提交。');
+                    $.ajax({
+                        type:'POST',
+                        url:"{% url 'mysite:submit_comments' post.id %}",
+                        success:function (result) {
+                            $('#comments-list').html(result);
+                        },
+                        error:function () {
+                            console.log('从后端和获取数据失败了。')
+                        }
+                    })
                 },
                 error:function () {
                     alert('失败了')

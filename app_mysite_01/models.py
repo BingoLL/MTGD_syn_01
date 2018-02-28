@@ -118,13 +118,13 @@ class FriendWeb(models.Model):
         return self.friend_web_name
 
 class MessageBoard(models.Model):
-    name=models.CharField(max_length=80,null=True,verbose_name='昵称')
+    reader_name=models.CharField(max_length=80,null=True,verbose_name='昵称')
     body=models.TextField(verbose_name='欢迎留言')
-    created=models.DateTimeField(auto_now_add=True)
+    created_time=models.DateTimeField(auto_now_add=True)
     active=models.BooleanField(default=True)
 
     class Meta:
-        ordering=('-created',)
+        ordering=('-created_time',)
         verbose_name_plural='留言'
         verbose_name='留言'
 

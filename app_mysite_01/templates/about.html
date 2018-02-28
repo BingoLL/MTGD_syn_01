@@ -44,22 +44,8 @@
             <!--评论列表-->
             <h5>留言墙</h5>
             <hr style="height:1px;border:none;margin-top:5px;padding:0;border-top:1px dashed #808080;" />
-            <ul class="grid-container">
-            {% if messages.count %}
-                {% for message in messages %}
-                <li class="grid-x grid-padding-x" style="color:#808080;">
-                    <div class="small-11">
-                        <span class="">{{ message.name }}</span>&nbsp;&nbsp;&nbsp;<span>{{ message.created }}</span>
-                    </div>
-                    <div class="small-1 text-right">
-                        <span>{{ forloop.revcounter }}#</span>
-                    </div>
-                    <div class="small-12">
-                        {{ message.body }}
-                    </div>
-                </li>
-                {% endfor %}
-            {% endif %}
+            <ul id="messages-list" class="grid-container">
+            {% include 'messages_list.html' %}
             </ul><!--评论列表-->
             {% include 'pagination.html' with page=posts %}
 
@@ -79,11 +65,8 @@
                 </div>
             </div>
         </div><!--友情链接-->
-
     </div>
-
     <div class="grid-x grid-padding-x">
-
     </div>
 </div>
 {% endblock %}
@@ -103,7 +86,16 @@
                 success:function (ret) {
                     $('#message_name').val('');
                     $('#message_body').val('');
-                    alert('您已提交留言，请勿重复提交。');
+                    $.ajax({
+                        type:'POST',
+                        url:"{% url 'mysite:submit_messages' %}",
+                        success:function (result) {
+                            $('#messages-list').html(result);
+                        },
+                        error:function () {
+                            console.log('从后端和获取数据失败了。')
+                        }
+                    })
                 },
                 error:function () {
                 },

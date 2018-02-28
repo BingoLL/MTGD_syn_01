@@ -1,9 +1,10 @@
 from django.shortcuts import render,get_object_or_404
 from .models import Category,Tag,Post,Comment,AboutSite,AboutMe,FriendWeb,MessageBoard,webSettings
 from django.core.paginator import Paginator,EmptyPage,PageNotAnInteger
+from django.http import HttpResponse
+import json
 
 # Create your views here.
-
 
 tags_color=['primary','secondary','success','warning','alert']*5
 
@@ -52,7 +53,6 @@ def post_list(request,tag_slug=None,cate_slug=None):
                                        'tags_color':tags_color,
                                        'web_settings':web_settings,})
 
-
 def post_detail(request,slug,tag_slug=None,cate_slug=None):
     post=get_object_or_404(Post, status = 'published', id=slug,)
     post.views_count()
@@ -80,8 +80,6 @@ def post_detail(request,slug,tag_slug=None,cate_slug=None):
     if tag_slug:
         tag=get_object_or_404(Tag,id=tag_slug)
 
-
-
     return render(request,'detail.html',{'post':post,
                                          'tag':tag,
                                          'host_posts':host_posts,
@@ -103,10 +101,7 @@ def submit_comments(request,id):
             cc = Comment(post=post, reader_name=cc_name, body=cc)
             cc.save()
     comments=post.comments.filter(active=True)
-    return render(request,'comments_list.html',{'comments':comments,
-                                                'post':post,
-                                                })
-
+    return render(request,'comments_list.html',{'comments':comments})
 
 def about(request):
     aboutsite_posts=AboutSite.objects.all()
@@ -126,7 +121,6 @@ def about(request):
     cates_list=Category.objects.all()
     tags_list=Tag.objects.all()
 
-
     return render(request,'about.html',{'aboutsite_posts':aboutsite_posts,
                                         'aboutme_posts':aboutme_posts,
                                         'messages':messages,
@@ -141,9 +135,9 @@ def submit_message(request):
         message_name = request.POST.get('cc_name')
         message_body = request.POST.get('cc')
         if message_body and message_name:
-            message = MessageBoard(name=message_name, body=message_body)
+            message = MessageBoard(reader_name=message_name, body=message_body)
             message.save()
 
     messages=MessageBoard.objects.filter(active=True)
 
-    return render(request,'comments_list.html',{'messages':messages,})
+    return render(request,'messages_list.html',{'messages':messages,})

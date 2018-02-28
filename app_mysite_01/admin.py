@@ -48,9 +48,9 @@ class FriendwebAdmin(admin.ModelAdmin):
 admin.site.register(FriendWeb,FriendwebAdmin)
 
 class MessageBoardAdmin(admin.ModelAdmin):
-    list_display = ('name','body','created','active')
-    list_filter = ('name',)
-    search_fields = ('name','body')
+    list_display = ('reader_name','body','created_time','active')
+    list_filter = ('reader_name',)
+    search_fields = ('reader_name','body')
 
 admin.site.register(MessageBoard,MessageBoardAdmin)
 

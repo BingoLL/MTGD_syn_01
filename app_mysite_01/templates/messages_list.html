@@ -1,0 +1,15 @@
+{% if messages.count %}
+    {% for message in messages %}
+    <li class="grid-x grid-padding-x" style="color:#808080;">
+        <div class="small-11">
+            <span class="">{{ message.reader_name }}</span>&nbsp;&nbsp;&nbsp;<span>{{ message.created_time }}</span>
+        </div>
+        <div class="small-1 text-right">
+            <span>{{ forloop.revcounter }}#</span>
+        </div>
+        <div class="small-12">
+            {{ message.body }}
+        </div>
+    </li>
+    {% endfor %}
+{% endif %}
