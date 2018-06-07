@@ -1,0 +1,7 @@
+#忽略.gitignore文件
+.gtignore  
+#忽略后缀名为.pyc的文件  
+*.pyc
+migrations/
+uwsgi.log
+uwsgi.pid

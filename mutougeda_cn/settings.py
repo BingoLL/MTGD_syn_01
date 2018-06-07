@@ -91,9 +91,9 @@ else:
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.mysql',
-            'NAME': 'MuTouGeDa_01',
-            'USER': 'MTGD_admin01',
-            'PASSWORD': 'MTGD20180205zyb',
+            'NAME': 'mtgd_01',
+            'USER': 'mtgd',
+            'PASSWORD': 'mtgd123',
             'HOST': 'localhost',
             'PORT': '3306',
             'CHARSET': 'utf8',
