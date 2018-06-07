@@ -140,9 +140,9 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.0/howto/static-files/
 
 STATIC_URL = '/static/'
-STATIC_ROOT = '/var/www/web_MTGD/static/'
+STATIC_ROOT = '/var/www/mtgd/static/'
 
-MEDIA_ROOT = '/var/www/web_MTGD/media/'
+MEDIA_ROOT = '/var/www/mtgd/media/'
 MEDIA_URL = '/media/'
 
 CKEDITOR_IMAGE_BAKEND = 'pillow'
