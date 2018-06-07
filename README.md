@@ -1,4 +1,22 @@
 ### www.mutougeda.cn
+
+```
+sudo apt install nginx
+# mkdir /var/www/mtgd/static  media 并且赋予777权限
+pip3 install uwsgi
+sudo ln -s ~/mtgd/mutougeda_cn_nginx /etc/nginx/sites-enabled/
+uwsgi --ini uwsgi.ini
+```
+
+
+
+
+
+
+
+
+
+
 for the web site.2018-02-06
 
 >### 本站源码使用（默认Linux系统）：
