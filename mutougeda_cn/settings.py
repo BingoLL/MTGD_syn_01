@@ -93,7 +93,7 @@ else:
             'ENGINE': 'django.db.backends.mysql',
             'NAME': 'mtgd_01',
             'USER': 'mtgd',
-            'PASSWORD': 'mtgd123',
+            'PASSWORD': 'mutougedacn',
             'HOST': 'localhost',
             'PORT': '3306',
             'CHARSET': 'utf8',
