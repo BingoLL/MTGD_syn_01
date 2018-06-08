@@ -23,7 +23,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'd3ha-tl#q=gx#ooz6dk@4p25uzkbl!q)myi$!$%tq+*cfn^@nm'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['*',]
 
@@ -79,7 +79,9 @@ WSGI_APPLICATION = 'mutougeda_cn.wsgi.application'
 # https://docs.djangoproject.com/en/2.0/ref/settings/#databases
 
 
-if DEBUG:
+database_01 = 0
+
+if database_01:
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.sqlite3',
