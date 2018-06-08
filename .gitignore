@@ -2,7 +2,7 @@
 ?.gtignore  
 #忽略后缀名为.pyc的文件  
 *.pyc
-/app_mysite_01/migrations/*
-!?/app_mysite_01/migrations/__init__.py
+*/app_mysite_01/migrations
+?!/app_mysite_01/migrations/__init__.py
 uwsgi.log
 uwsgi.pid
